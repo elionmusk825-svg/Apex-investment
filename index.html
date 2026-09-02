@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>APEX Investment</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --bg:#020912;
+  --panel:#07131f;
+  --panel2:#0b1926;
+  --border:#1c3345;
+  --gold:#f5b51b;
+  --gold2:#ffca3a;
+  --text:#f5f7fa;
+  --muted:#91a0ae;
+  --green:#13c784;
+  --blue:#2d8cff;
+  --purple:#9b5cff;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Inter,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 75% 10%,#10263a 0%,transparent 35%),
+    radial-gradient(circle at 15% 45%,#0b1a27 0%,transparent 30%),
+    #02070d;
+}
+
+/* NAVBAR */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  height:75px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 5%;
+  background:rgba(2,8,14,.95);
+  border-bottom:1px solid #172936;
+  backdrop-filter:blur(15px);
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#fff;
+  text-decoration:none;
+  font-size:24px;
+  font-weight:800;
+}
+
+.logo-icon{
+  color:var(--gold);
+  font-size:43px;
+  font-weight:900;
+}
+
+.logo small{
+  display:block;
+  color:var(--gold);
+  font-size:8px;
+  letter-spacing:3px;
+}
+
+nav{
+  display:flex;
+  align-items:center;
+  gap:27px;
+}
+
+nav a{
+  color:#dce4eb;
+  text-decoration:none;
+  font-size:14px;
+  transition:.2s;
+}
+
+nav a:hover{
+  color:var(--gold);
+}
+
+.btn{
+  display:inline-block;
+  padding:12px 22px;
+  border-radius:7px;
+  border:1px solid var(--gold);
+  background:linear-gradient(135deg,#ffca36,#df9700);
+  color:#071018!important;
+  font-weight:800;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+.btn-outline{
+  background:transparent;
+  color:#fff!important;
+}
+
+.menu{
+  display:none;
+  font-size:25px;
+  background:none;
+  border:0;
+  color:white;
+}
+
+/* HERO */
+
+.hero{
+  min-height:600px;
+  padding:70px 6%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  overflow:hidden;
+}
+
+.eyebrow{
+  color:var(--gold);
+  font-size:12px;
+  letter-spacing:1.7px;
+  font-weight:800;
+}
+
+.hero h1{
+  margin:18px 0;
+  font-size:clamp(44px,6vw,75px);
+  line-height:1.03;
+}
+
+.hero h1 span{
+  color:var(--gold);
+}
+
+.hero-text{
+  max-width:600px;
+  color:#b8c4ce;
+  font-size:18px;
+  line-height:1.7;
+}
+
+.actions{
+  margin-top:28px;
+  display:flex;
+  gap:15px;
+}
+
+.trust{
+  margin-top:25px;
+  color:#9daab5;
+  font-size:13px;
+}
+
+/* HERO GRAPHIC */
+
+.hero-art{
+  min-height:450px;
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.btc{
+  width:275px;
+  height:275px;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:120px;
+  color:#ffbe18;
+  background:
+    radial-gradient(circle,#38290a,#071019 68%);
+  border:2px solid #e3a30f;
+  box-shadow:
+    0 0 35px #f5b51b55,
+    0 0 110px #f5b51b1c,
+    inset 0 0 45px #f5b51b20;
+  position:relative;
+  z-index:3;
+}
+
+.coin{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  position:absolute;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#091723;
+  border:1px solid #3e6177;
+  font-size:35px;
+  box-shadow:0 0 30px #2d8cff22;
+}
+
+.coin.eth{
+  top:50px;
+  left:12%;
+  color:#55b6ff;
+}
+
+.coin.usdt{
+  right:9%;
+  bottom:70px;
+  color:#17d99c;
+}
+
+.chart-line{
+  position:absolute;
+  width:100%;
+  height:150px;
+  bottom:15px;
+  left:0;
+  border-bottom:2px solid var(--gold);
+  transform:skewY(-8deg);
+  opacity:.7;
+  box-shadow:0 10px 25px #f5b51b33;
+}
+
+/* STATS */
+
+.stats{
+  margin:0 6%;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  background:#07131e;
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.stat{
+  padding:27px;
+  text-align:center;
+  border-right:1px solid var(--border);
+}
+
+.stat:last-child{
+  border-right:0;
+}
+
+.stat-icon{
+  color:var(--gold);
+  font-size:28px;
+}
+
+.stat strong{
+  display:block;
+  font-size:23px;
+  margin-top:5px;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* SECTIONS */
+
+section{
+  padding:90px 6%;
+}
+
+.section-title{
+  text-align:center;
+  max-width:750px;
+  margin:0 auto 45px;
+}
+
+.section-title h2{
+  font-size:40px;
+  margin:8px 0;
+}
+
+.section-title p{
+  color:var(--muted);
+}
+
+/* PLANS */
+
+.plans{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  max-width:1200px;
+  margin:auto;
+}
+
+.plan{
+  position:relative;
+  padding:30px 24px;
+  min-height:360px;
+  border-radius:13px;
+  border:1px solid var(--border);
+  background:
+    linear-gradient(180deg,#0a1824,#051019);
+  text-align:center;
+  transition:.3s;
+}
+
+.plan:hover{
+  transform:translateY(-7px);
+  border-color:#a87816;
+}
+
+.plan.popular{
+  border-color:#2589ff;
+}
+
+.popular-label{
+  position:absolute;
+  top:-12px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:4px 13px;
+  border-radius:15px;
+  background:var(--gold);
+  color:#111;
+  font-size:10px;
+  font-weight:900;
+}
+
+.plan-icon{
+  font-size:28px;
+}
+
+.plan h3{
+  margin:8px 0;
+  font-size:21px;
+}
+
+.plan .return{
+  color:var(--gold);
+  font-size:37px;
+  font-weight:900;
+  margin:12px 0 0;
+}
+
+.plan .duration{
+  color:white;
+}
+
+.plan hr{
+  border:0;
+  border-top:1px solid var(--border);
+  margin:18px 0;
+}
+
+.plan p{
+  color:var(--muted);
+  font-size:13px;
+  margin:8px;
+}
+
+.plan .btn{
+  width:100%;
+  margin-top:15px;
+}
+
+/* MARKET */
+
+.market{
+  background:#030b12;
+  border-top:1px solid #10202b;
+  border-bottom:1px solid #10202b;
+}
+
+.market-grid{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:20px;
+}
+
+.market-card,
+.video-card{
+  background:#07131e;
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.market-header{
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+}
+
+.market-header small{
+  color:var(--muted);
+}
+
+.price{
+  font-size:32px;
+  margin-top:5px;
+}
+
+.red{
+  color:#ff4e5c;
+}
+
+.chart{
+  height:280px;
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(#122331 1px,transparent 1px),
+    linear-gradient(90deg,#122331 1px,transparent 1px);
+  background-size:50px 50px;
+}
+
+.svg-chart{
+  width:100%;
+  height:100%;
+}
+
+.video{
+  height:280px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    linear-gradient(135deg,#03101d,#092640);
+  position:relative;
+}
+
+.play{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:var(--gold);
+  color:#111;
+  font-size:30px;
+}
+
+.video-content{
+  padding:25px;
+}
+
+.video-content h3{
+  font-size:28px;
+}
+
+.video-content p{
+  color:var(--muted);
+  margin:10px 0 18px;
+}
+
+/* FEATURES */
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  max-width:1250px;
+  margin:auto;
+}
+
+.feature{
+  text-align:center;
+  padding:28px 15px;
+  border-right:1px solid var(--border);
+}
+
+.feature:last-child{
+  border:0;
+}
+
+.feature-icon{
+  font-size:32px;
+  color:var(--gold);
+}
+
+.feature h3{
+  font-size:15px;
+  margin:10px 0;
+}
+
+.feature p{
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* DASHBOARD */
+
+.dashboard-section{
+  background:#01070d;
+}
+
+.dashboard{
+  max-width:1250px;
+  margin:auto;
+  border:1px solid #213848;
+  border-radius:14px;
+  background:#06111b;
+  padding:18px;
+  display:grid;
+  grid-template-columns:190px 1fr;
+  gap:15px;
+}
+
+.sidebar{
+  border-right:1px solid var(--border);
+  padding:15px 10px;
+}
+
+.sidebar .brand-mini{
+  font-size:19px;
+  font-weight:900;
+  color:white;
+  margin-bottom:30px;
+}
+
+.sidebar .brand-mini span{
+  color:var(--gold);
+}
+
+.side-item{
+  padding:12px 10px;
+  color:#aebbc5;
+  border-radius:6px;
+  margin:4px 0;
+  font-size:12px;
+}
+
+.side-item.active{
+  background:#3b2d0c;
+  color:var(--gold);
+}
+
+.dash-main{
+  min-width:0;
+}
+
+.dash-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.dash-top small{
+  color:var(--muted);
+}
+
+.dash-cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.dash-card{
+  padding:16px;
+  background:#091824;
+  border:1px solid var(--border);
+  border-radius:9px;
+}
+
+.dash-card small{
+  color:var(--muted);
+}
+
+.dash-card strong{
+  display:block;
+  font-size:20px;
+  margin-top:5px;
+}
+
+.green{
+  color:var(--green);
+}
+
+.dashboard-middle{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns:1.4fr .6fr;
+  gap:14px;
+}
+
+.dash-chart{
+  height:300px;
+  padding:20px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#081620;
+}
+
+.assets{
+  padding:20px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#081620;
+}
+
+.donut{
+  width:130px;
+  height:130px;
+  margin:20px auto;
+  border-radius:50%;
+  background:
+    conic-gradient(
+      var(--gold) 0 62%,
+      var(--blue) 62% 82%,
+      var(--purple) 82% 94%,
+      var(--green) 94% 100%
+    );
+  display:grid;
+  place-items:center;
+}
+
+.donut::after{
+  content:"$19.61M";
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:#081620;
+  display:grid;
+  place-items:center;
+  font-size:13px;
+}
+
+.asset-row{
+  display:flex;
+  justify-content:space-between;
+  padding:7px 0;
+  font-size:12px;
+  color:#aebbc5;
+}
+
+/* FOOTER */
+
+footer{
+  padding:45px 6%;
+  border-top:1px solid var(--border);
+  background:#02080e;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:30px;
+}
+
+footer p{
+  color:var(--muted);
+  font-size:12px;
+  max-width:400px;
+}
+
+footer h3{
+  margin-bottom:12px;
+}
+
+footer a{
+  color:#b9c4cd;
+  text-decoration:none;
+  display:block;
+  margin:7px 0;
+  font-size:13px;
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+  nav{
+    display:none;
+  }
+
+  .menu{
+    display:block;
+  }
+
+  .hero{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .hero-text{
+    margin:auto;
+  }
+
+  .actions{
+    justify-content:center;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .plans{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .market-grid{
+    grid-template-columns:1fr;
+  }
+
+  .features{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .dashboard{
+    grid-template-columns:1fr;
+  }
+
+  .sidebar{
+    border-right:0;
+    border-bottom:1px solid var(--border);
+  }
+
+  .dash-cards{
+    grid-template-columns:1fr 1fr;
+  }
+
+  footer{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+
+  header{
+    padding:0 20px;
+  }
+
+  section{
+    padding:65px 20px;
+  }
+
+  .hero{
+    padding:55px 20px;
+  }
+
+  .hero h1{
+    font-size:45px;
+  }
+
+  .hero-art{
+    min-height:330px;
+  }
+
+  .btc{
+    width:210px;
+    height:210px;
+    font-size:90px;
+  }
+
+  .coin{
+    width:60px;
+    height:60px;
+  }
+
+  .stats{
+    margin:0 20px;
+    grid-template-columns:1fr 1fr;
+  }
+
+  .stat{
+    padding:18px 8px;
+  }
+
+  .stat strong{
+    font-size:17px;
+  }
+
+  .plans{
+    grid-template-columns:1fr;
+  }
+
+  .features{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .feature{
+    border-bottom:1px solid var(--border);
+  }
+
+  .dashboard-middle{
+    grid-template-columns:1fr;
+  }
+
+  .dash-cards{
+    grid-template-columns:1fr;
+  }
+
+  .section-title h2{
+    font-size:32px;
+  }
+
+  .actions{
+    flex-direction:column;
+  }
+
+  .actions .btn{
+    width:100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<a href="#home" class="logo">
+  <span class="logo-icon">A</span>
+  <span>
+    APEX
+    <small>INVESTMENT</small>
+  </span>
+</a>
+
+<button class="menu">☰</button>
+
+<nav>
+  <a href="#home">Home</a>
+  <a href="#about">About Us</a>
+  <a href="#plans">Investment Plans</a>
+  <a href="#how">How It Works</a>
+  <a href="#affiliate">Affiliate</a>
+  <a href="#faq">FAQ</a>
+  <a href="#contact">Contact</a>
+  <a href="#login" class="btn btn-outline">Login</a>
+  <a href="#register" class="btn">Register</a>
+</nav>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+<div>
+
+<p class="eyebrow">WELCOME TO APEX INVESTMENT</p>
+
+<h1>
+Smart <span>Investment</span><br>
+Secure Future
+</h1>
+
+<p class="hero-text">
+A professional investment platform interface designed for
+portfolio management, transparent reporting, secure account
+access and digital-asset tracking.
+</p>
+
+<div class="actions">
+<a href="#register" class="btn">Get Started →</a>
+<a href="#how" class="btn btn-outline">Learn More</a>
+</div>
+
+<p class="trust">
+✓ Secure account architecture &nbsp;
+✓ Transparent reporting &nbsp;
+✓ 24/7 account visibility
+</p>
+
+</div>
+
+
+<div class="hero-art">
+
+<div class="coin eth">Ξ</div>
+
+<div class="btc">₿</div>
+
+<div class="coin usdt">₮</div>
+
+<div class="chart-line"></div>
+
+</div>
+
+</section>
+
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat">
+<div class="stat-icon">◉</div>
+<strong>Portfolio</strong>
+<span>Professional dashboard</span>
+</div>
+
+<div class="stat">
+<div class="stat-icon">↗</div>
+<strong>Real-time Ready</strong>
+<span>Market integration</span>
+</div>
+
+<div class="stat">
+<div class="stat-icon">▣</div>
+<strong>KYC Ready</strong>
+<span>Verification workflow</span>
+</div>
+
+<div class="stat">
+<div class="stat-icon">★</div>
+<strong>Responsive</strong>
+<span>Mobile & desktop</span>
+</div>
+
+</div>
+
+
+<!-- PLANS -->
+
+<section id="plans">
+
+<div class="section-title">
+
+<p class="eyebrow">INVESTMENT OPTIONS</p>
+
+<h2>Choose Your Investment Plan</h2>
+
+<p>
+Review the product terms, fees and risks before investing.
+Replace these demonstration values with your approved
+financial products.
+</p>
+
+</div>
+
+
+<div class="plans">
+
+<div class="plan">
+
+<div class="plan-icon">💎</div>
+
+<h3>Starter Plan</h3>
+
+<div class="return">Flexible</div>
+
+<div class="duration">Starter Portfolio</div>
+
+<hr>
+
+<p>Minimum Deposit</p>
+<strong>Set by operator</strong>
+
+<p>Portfolio Tracking</p>
+<strong>✓ Included</strong>
+
+<a class="btn">View Details</a>
+
+</div>
+
+
+<div class="plan popular">
+
+<div class="popular-label">MOST POPULAR</div>
+
+<div class="plan-icon">☆</div>
+
+<h3>Growth Plan</h3>
+
+<div class="return">Flexible</div>
+
+<div class="duration">Growth Portfolio</div>
+
+<hr>
+
+<p>Minimum Deposit</p>
+<strong>Set by operator</strong>
+
+<p>Performance Reporting</p>
+<strong>✓ Included</strong>
+
+<a class="btn">View Details</a>
+
+</div>
+
+
+<div class="plan">
+
+<div class="plan-icon">♛</div>
+
+<h3>Premium Plan</h3>
+
+<div class="return">Flexible</div>
+
+<div class="duration">Premium Portfolio</div>
+
+<hr>
+
+<p>Minimum Deposit</p>
+<strong>Set by operator</strong>
+
+<p>Advanced Reporting</p>
+<strong>✓ Included</strong>
+
+<a class="btn">View Details</a>
+
+</div>
+
+
+<div class="plan">
+
+<div class="plan-icon">◇</div>
+
+<h3>VIP Plan</h3>
+
+<div class="return">Flexible</div>
+
+<div class="duration">VIP Portfolio</div>
+
+<hr>
+
+<p>Minimum Deposit</p>
+<strong>Contact Team</strong>
+
+<p>Dedicated Support</p>
+<strong>✓ Included</strong>
+
+<a class="btn">View Details</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- MARKET -->
+
+<section class="market">
+
+<div class="market-grid">
+
+<div class="market-card">
+
+<div class="market-header">
+
+<div>
+<small>Bitcoin / U.S. Dollar</small>
+<h2 class="price">$76,443.12</h2>
+<span class="red">▼ 1.23%</span>
+</div>
+
+<div>
+<button class="btn">1D</button>
+</div>
+
+</div>
+
+<div class="chart">
+
+<svg class="svg-chart"
+viewBox="0 0 800 300"
+preserveAspectRatio="none">
+
+<polyline
+fill="none"
+stroke="#f5b51b"
+stroke-width="4"
+points="
+0,80
+30,110
+55,95
+85,140
+115,125
+145,180
+175,145
+205,190
+235,160
+265,215
+295,180
+325,230
+355,195
+385,245
+415,205
+445,220
+475,175
+505,210
+535,155
+565,190
+595,145
+625,175
+655,130
+685,160
+715,110
+750,145
+800,105
+"/>
+
+</svg>
+
+</div>
+
+</div>
+
+
+<div class="video-card">
+
+<div class="video">
+
+<div class="play">▶</div>
+
+</div>
+
+<div class="video-content">
+
+<p class="eyebrow">ADVERTISING VIDEO</p>
+
+<h3>Watch Our Platform in Action</h3>
+
+<p>
+Discover the Apex Investment platform,
+portfolio dashboard and account features.
+</p>
+
+<a class="btn">Watch Now ▶</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section id="about">
+
+<div class="features">
+
+<div class="feature">
+<div class="feature-icon">🛡</div>
+<h3>Secure Platform</h3>
+<p>Security-focused architecture.</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">↗</div>
+<h3>Performance</h3>
+<p>Clear portfolio reporting.</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">◷</div>
+<h3>24/7 Support</h3>
+<p>Support workflow available.</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">$</div>
+<h3>Withdrawals</h3>
+<p>Connect approved payment rails.</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">♧</div>
+<h3>Affiliate</h3>
+<p>Referral system ready.</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">▤</div>
+<h3>Transparent</h3>
+<p>Clear records and reporting.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section class="dashboard-section">
+
+<div class="section-title">
+
+<p class="eyebrow">ACCOUNT EXPERIENCE</p>
+
+<h2>Your Investment Dashboard</h2>
+
+<p>
+A professional dashboard layout for balances,
+assets, activity and portfolio performance.
+</p>
+
+</div>
+
+
+<div class="dashboard">
+
+<aside class="sidebar">
+
+<div class="brand-mini">
+<span>APEX</span><br>
+INVESTMENT
+</div>
+
+<div class="side-item active">▣ Dashboard</div>
+<div class="side-item">↗ Invest</div>
+<div class="side-item">↓ Deposit</div>
+<div class="side-item">↑ Withdraw</div>
+<div class="side-item">◉ Portfolio</div>
+<div class="side-item">▤ Transactions</div>
+<div class="side-item">♧ Referrals</div>
+<div class="side-item">⚙ Settings</div>
+<div class="side-item">↪ Logout</div>
+
+</aside>
+
+
+<div class="dash-main">
+
+<div class="dash-top">
+
+<div>
+<small>Welcome back,</small>
+<h3>Investor Dashboard</h3>
+</div>
+
+<div>🔔 &nbsp; 👤</div>
+
+</div>
+
+
+<div class="dash-cards">
+
+<div class="dash-card">
+<small>Total Portfolio Value</small>
+<strong>$19,615,845.70</strong>
+<span class="green">Portfolio</span>
+</div>
+
+<div class="dash-card">
+<small>Total Invested</small>
+<strong>$15,500,000.00</strong>
+<span class="green">Active</span>
+</div>
+
+<div class="dash-card">
+<small>Total Performance</small>
+<strong>+26.55%</strong>
+<span class="green">Updated</span>
+</div>
+
+<div class="dash-card">
+<small>Available Balance</small>
+<strong>$215,845.70</strong>
+<span class="green">Available</span>
+</div>
+
+</div>
+
+
+<div class="dashboard-middle">
+
+<div class="dash-chart">
+
+<h3>Bitcoin (BTC)</h3>
+
+<div class="price">$76,622.12</div>
+
+<svg
+class="svg-chart"
+viewBox="0 0 800 260"
+preserveAspectRatio="none">
+
+<polyline
+fill="none"
+stroke="#f5b51b"
+stroke-width="4"
+points="
+0,110
+40,80
+80,100
+120,130
+160,90
+200,155
+240,125
+280,170
+320,120
+360,185
+400,150
+440,210
+480,160
+520,130
+560,175
+600,145
+640,190
+680,140
+720,160
+760,125
+800,180
+"/>
+
+</svg>
+
+</div>
+
+
+<div class="assets">
+
+<h3>My Assets</h3>
+
+<div class="donut"></div>
+
+<div class="asset-row">
+<span>🟠 BTC</span>
+<strong>256 BTC</strong>
+</div>
+
+<div class="asset-row">
+<span>🔵 USDT</span>
+<strong>15,200</strong>
+</div>
+
+<div class="asset-row">
+<span>🟣 ETH</span>
+<strong>3.45 ETH</strong>
+</div>
+
+<div class="asset-row">
+<span>🟢 Others</span>
+<strong>$12,350</strong>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section id="how">
+
+<div class="section-title">
+
+<p class="eyebrow">HOW IT WORKS</p>
+
+<h2>Simple. Clear. Accountable.</h2>
+
+</div>
+
+
+<div class="plans">
+
+<div class="plan">
+<div class="return">01</div>
+<h3>Create Account</h3>
+<p>Register an account and complete required verification.</p>
+</div>
+
+<div class="plan">
+<div class="return">02</div>
+<h3>Fund Account</h3>
+<p>Use only payment methods officially configured by the operator.</p>
+</div>
+
+<div class="plan">
+<div class="return">03</div>
+<h3>Select Product</h3>
+<p>Review risks, fees and terms before committing funds.</p>
+</div>
+
+<div class="plan">
+<div class="return">04</div>
+<h3>Track Portfolio</h3>
+<p>Monitor transactions, balances and statements.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FAQ -->
+
+<section id="faq" class="market">
+
+<div class="section-title">
+
+<p class="eyebrow">FAQ</p>
+
+<h2>Frequently Asked Questions</h2>
+
+</div>
+
+<div style="max-width:850px;margin:auto">
+
+<details style="padding:20px;border-bottom:1px solid #1c3345">
+<summary>Are investment returns guaranteed?</summary>
+<p style="color:#91a0ae;padding-top:15px">
+No. Investment returns should never be represented as guaranteed
+unless the product and legal framework genuinely support that claim.
+</p>
+</details>
+
+<details style="padding:20px;border-bottom:1px solid #1c3345">
+<summary>Can the website accept Bitcoin?</summary>
+<p style="color:#91a0ae;padding-top:15px">
+A real BTC payment system requires a controlled wallet/custodian,
+blockchain transaction verification and appropriate compliance controls.
+</p>
+</details>
+
+<details style="padding:20px;border-bottom:1px solid #1c3345">
+<summary>Can users withdraw?</summary>
+<p style="color:#91a0ae;padding-top:15px">
+A production withdrawal system must connect to a properly configured
+bank, payment processor or crypto custody service.
+</p>
+</details>
+
+</div>
+
+</section>
+
+
+<!-- REGISTER -->
+
+<section id="register">
+
+<div class="section-title">
+
+<p class="eyebrow">GET STARTED</p>
+
+<h2>Create Your Account</h2>
+
+</div>
+
+<form
+style="
+max-width:550px;
+margin:auto;
+display:grid;
+gap:14px;
+"
+onsubmit="registerUser(event)"
+>
+
+<input id="name"
+required
+placeholder="Full Name"
+style="padding:15px;background:#07131e;border:1px solid #1c3345;border-radius:7px;color:white">
+
+<input id="email"
+required
+type="email"
+placeholder="Email Address"
+style="padding:15px;background:#07131e;border:1px solid #1c3345;border-radius:7px;color:white">
+
+<input id="password"
+required
+type="password"
+minlength="8"
+placeholder="Password (minimum 8 characters)"
+style="padding:15px;background:#07131e;border:1px solid #1c3345;border-radius:7px;color:white">
+
+<button class="btn">
+Create Account
+</button>
+
+<p id="registerMessage" style="text-align:center;color:#13c784"></p>
+
+</form>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section id="contact" class="market">
+
+<div class="section-title">
+
+<p class="eyebrow">CONTACT</p>
+
+<h2>Contact Apex Investment</h2>
+
+</div>
+
+<form
+style="
+max-width:650px;
+margin:auto;
+display:grid;
+gap:14px;
+"
+onsubmit="contactForm(event)"
+>
+
+<input required placeholder="Your Name"
+style="padding:15px;background:#07131e;border:1px solid #1c3345;border-radius:7px;color:white">
+
+<input required type="email" placeholder="Email Address"
+style="padding:15px;background:#07131e;border:1px solid #1c3345;border-radius:7px;color:white">
+
+<textarea required placeholder="Message"
+style="min-height:150px;padding:15px;background:#07131e;border:1px solid #1c3345;border-radius:7px;color:white"></textarea>
+
+<button class="btn">Send Message</button>
+
+<p id="contactMessage" style="text-align:center;color:#13c784"></p>
+
+</form>
+
+</section>
+
+
+<footer>
+
+<div>
+
+<a class="logo" href="#home">
+<span class="logo-icon">A</span>
+<span>APEX<small>INVESTMENT</small></span>
+</a>
+
+<p style="margin-top:15px">
+Professional investment platform interface.
+Replace demonstration information with verified
+company, legal and financial information before launch.
+</p>
+
+</div>
+
+
+<div>
+
+<h3>Quick Links</h3>
+
+<a href="#home">Home</a>
+<a href="#about">About Us</a>
+<a href="#plans">Investment Plans</a>
+<a href="#how">How It Works</a>
+<a href="#faq">FAQ</a>
+
+</div>
+
+
+<div>
+
+<h3>Legal</h3>
+
+<a href="#">Privacy Policy</a>
+<a href="#">Terms & Conditions</a>
+<a href="#">Risk Disclosure</a>
+<a href="#">AML/KYC Policy</a>
+
+</div>
+
+</footer>
+
+
+<script>
+
+function registerUser(e){
+
+  e.preventDefault();
+
+  const name =
+    document.getElementById("name").value;
+
+  const email =
+    document.getElementById("email").value;
+
+  document.getElementById("registerMessage").innerText =
+    "Demo account created for " + name +
+    ". Connect a secure production backend before using real funds.";
+
+}
+
+function contactForm(e){
+
+  e.preventDefault();
+
+  document.getElementById("contactMessage").innerText =
+    "Message submitted successfully in demo mode.";
+
+}
+
+document.querySelector(".menu").onclick=function(){
+
+  const nav=document.querySelector("nav");
+
+  if(nav.style.display==="flex"){
+    nav.style.display="none";
+  }else{
+    nav.style.display="flex";
+    nav.style.flexDirection="column";
+    nav.style.position="absolute";
+    nav.style.top="75px";
+    nav.style.left="0";
+    nav.style.right="0";
+    nav.style.padding="25px";
+    nav.style.background="#020912";
+  }
+
+};
+
+</script>
+
+</body>
+</html>
